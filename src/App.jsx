@@ -180,43 +180,79 @@ export default function BlueAllyAIWorkshop() {
     { icon: '🛡️', title: 'Readiness Assessment', description: 'Data quality, infrastructure, and security posture analysis' },
   ];
 
+  // BlueAlly Brand Colors
+  const brand = {
+    primary: '#0693e3',      // BlueAlly vivid cyan blue
+    dark: '#32373c',         // Dark charcoal (buttons)
+    accent: '#9b51e0',       // Vivid purple accent
+    success: '#00B34A',      // Green for success states
+    white: '#ffffff',
+    black: '#000000',
+  };
+
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-      {/* Google Fonts */}
+    <div className="min-h-screen bg-white" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" }}>
+      {/* BlueAlly Brand Styles */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap');
-        
         * { box-sizing: border-box; }
-        
+
         .gradient-text {
-          background: linear-gradient(135deg, #003B73 0%, #00A3E0 100%);
+          background: linear-gradient(135deg, #0693e3 0%, #32373c 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        
+
         .glass-card {
-          background: rgba(255, 255, 255, 0.9);
+          background: rgba(255, 255, 255, 0.95);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(0, 59, 115, 0.1);
+          border: 1px solid rgba(6, 147, 227, 0.1);
         }
-        
+
         .hover-lift {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .hover-lift:hover {
           transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 59, 115, 0.15);
+          box-shadow: 0 20px 40px rgba(6, 147, 227, 0.15);
         }
-        
+
+        .btn-primary {
+          background: #32373c;
+          color: white;
+          border-radius: 9999px;
+          padding: calc(.667em + 2px) calc(1.333em + 2px);
+          font-size: 1.125em;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+          background: #0693e3;
+          box-shadow: 0 10px 30px rgba(6, 147, 227, 0.3);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: white;
+          border: 2px solid rgba(255,255,255,0.4);
+          border-radius: 9999px;
+          padding: calc(.667em + 2px) calc(1.333em + 2px);
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+          background: rgba(255,255,255,0.1);
+          border-color: white;
+        }
+
         .pulse-glow {
           animation: pulseGlow 2s ease-in-out infinite;
         }
         @keyframes pulseGlow {
-          0%, 100% { box-shadow: 0 0 20px rgba(0, 179, 74, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(0, 179, 74, 0.6); }
+          0%, 100% { box-shadow: 0 0 20px rgba(6, 147, 227, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(6, 147, 227, 0.6); }
         }
-        
+
         .step-connector {
           position: relative;
         }
@@ -227,18 +263,44 @@ export default function BlueAllyAIWorkshop() {
           right: -20px;
           width: 40px;
           height: 2px;
-          background: linear-gradient(90deg, #00A3E0, #003B73);
+          background: linear-gradient(90deg, #0693e3, #32373c);
         }
-        
+
         .timeline-line {
-          background: linear-gradient(90deg, #003B73, #00A3E0, #00B34A);
+          background: linear-gradient(90deg, #32373c, #0693e3, #00B34A);
         }
       `}</style>
 
+      {/* ===== STICKY HEADER NAV ===== */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <a href="https://www.blueally.com" className="flex items-center">
+            <img
+              src="https://www.blueally.com/wp-content/uploads/2023/11/blue-header-logo.png"
+              alt="BlueAlly"
+              className="h-10 md:h-12"
+            />
+          </a>
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
+            <a href="#problem" className="hover:text-[#0693e3] transition-colors">Why AI Fails</a>
+            <a href="#framework" className="hover:text-[#0693e3] transition-colors">7-Step Framework</a>
+            <a href="#journey" className="hover:text-[#0693e3] transition-colors">Your Journey</a>
+            <a href="#results" className="hover:text-[#0693e3] transition-colors">Results</a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <a href="tel:8008865369" className="hidden md:flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#0693e3]">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              (800) 886-5369
+            </a>
+            <a href="#contact" className="btn-primary text-sm">Contact Us</a>
+          </div>
+        </div>
+      </header>
+
       {/* ===== SECTION 1: HERO ===== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #003B73 0%, #001d3a 50%, #00A3E0 100%)' }}>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16" style={{ background: 'linear-gradient(135deg, #32373c 0%, #1a1d20 50%, #0693e3 100%)' }}>
         <ParticleBackground />
-        
+
         {/* Animated geometric shapes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 border-2 border-white/10 rounded-full" style={{ animation: 'spin 20s linear infinite' }} />
@@ -248,22 +310,15 @@ export default function BlueAllyAIWorkshop() {
         <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
 
         <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-          {/* Logo */}
+          {/* Tagline */}
           <FadeInSection>
-            <div className="mb-8 flex justify-center">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">B</span>
-                </div>
-                <span className="text-3xl font-bold text-white tracking-tight">BlueAlly</span>
-              </div>
-            </div>
+            <p className="text-[#0693e3] font-medium text-lg mb-4 tracking-wide">CONQUER IT COMPLEXITY</p>
           </FadeInSection>
 
           <FadeInSection delay={0.1}>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               Don't Know How to<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #00A3E0, #00B34A)' }}>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #0693e3, #00B34A)' }}>
                 Get Started with AI?
               </span>
             </h1>
@@ -283,18 +338,18 @@ export default function BlueAllyAIWorkshop() {
               </div>
               <div className="w-full h-px bg-white/20 my-4" />
               <p className="text-white/90 text-lg">
-                Join the <span className="text-green-400 font-bold text-2xl">5%</span> who extract millions in value.
+                Join the <span className="text-[#00B34A] font-bold text-2xl">5%</span> who extract millions in value.
               </p>
             </div>
           </FadeInSection>
 
           <FadeInSection delay={0.4}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="px-10 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 pulse-glow flex items-center gap-2">
+              <a href="#contact" className="btn-primary px-10 py-4 text-lg flex items-center gap-2 pulse-glow">
                 Schedule Your Workshop
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </button>
-              <button className="px-8 py-4 border-2 border-white/40 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2">
+              </a>
+              <button className="btn-secondary px-8 py-4 flex items-center gap-2">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                 Watch 2-Min Overview
               </button>
@@ -315,8 +370,8 @@ export default function BlueAllyAIWorkshop() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: 80, suffix: '%', label: 'Corporate data is unstructured', color: '#003B73' },
-              { value: 60, suffix: '%', label: 'IT budget on only 20% of insights', color: '#00A3E0' },
+              { value: 80, suffix: '%', label: 'Corporate data is unstructured', color: '#32373c' },
+              { value: 60, suffix: '%', label: 'IT budget on only 20% of insights', color: '#0693e3' },
               { value: 40, prefix: '$', suffix: 'B', label: 'Invested with no P&L impact', color: '#dc2626' },
               { value: 5, suffix: '%', label: 'Achieve real AI ROI', color: '#00B34A' },
             ].map((stat, i) => (
@@ -332,10 +387,10 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 2: THE PROBLEM ===== */}
-      <section className="py-20 bg-white">
+      <section id="problem" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#003B73' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#32373c' }}>
               Why <span className="text-red-500">95%</span> of AI Initiatives Fail
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -405,8 +460,8 @@ export default function BlueAllyAIWorkshop() {
       <section className="py-20" style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)' }}>
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#003B73' }}>
-              Unlock the <span style={{ color: '#00A3E0' }}>80%</span> of Corporate Data
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#32373c' }}>
+              Unlock the <span style={{ color: '#0693e3' }}>80%</span> of Corporate Data
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               LLMs combined with RAG unlock unstructured data for decision making. Generative AI transforms the other 80%.
@@ -417,17 +472,17 @@ export default function BlueAllyAIWorkshop() {
             {/* Data Visualization */}
             <FadeInSection>
               <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="font-bold text-xl mb-6" style={{ color: '#003B73' }}>Corporate Data Landscape</h3>
+                <h3 className="font-bold text-xl mb-6" style={{ color: '#32373c' }}>Corporate Data Landscape</h3>
                 
                 <div className="space-y-6">
                   {/* Unstructured */}
                   <div>
                     <div className="flex justify-between mb-2">
                       <span className="font-medium">Unstructured Data</span>
-                      <span className="font-bold" style={{ color: '#003B73' }}>80%</span>
+                      <span className="font-bold" style={{ color: '#32373c' }}>80%</span>
                     </div>
                     <div className="h-8 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: '80%', background: 'linear-gradient(90deg, #003B73, #00A3E0)' }} />
+                      <div className="h-full rounded-full" style={{ width: '80%', background: 'linear-gradient(90deg, #32373c, #0693e3)' }} />
                     </div>
                     <p className="text-sm text-gray-500 mt-1">Documents, emails, images, video, audio</p>
                   </div>
@@ -459,8 +514,8 @@ export default function BlueAllyAIWorkshop() {
               <div className="space-y-6">
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover-lift">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" style={{ background: '#003B73' }}>RAG</div>
-                    <h4 className="text-xl font-bold" style={{ color: '#003B73' }}>Retrieval-Augmented Generation</h4>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" style={{ background: '#32373c' }}>RAG</div>
+                    <h4 className="text-xl font-bold" style={{ color: '#32373c' }}>Retrieval-Augmented Generation</h4>
                   </div>
                   <p className="text-gray-600 mb-4">Best for unstructured, static data: Documents, PDFs, wikis, manuals</p>
                   <div className="flex flex-wrap gap-2">
@@ -472,8 +527,8 @@ export default function BlueAllyAIWorkshop() {
 
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover-lift">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" style={{ background: '#00A3E0' }}>MCP</div>
-                    <h4 className="text-xl font-bold" style={{ color: '#00A3E0' }}>Model Context Protocol</h4>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" style={{ background: '#0693e3' }}>MCP</div>
+                    <h4 className="text-xl font-bold" style={{ color: '#0693e3' }}>Model Context Protocol</h4>
                   </div>
                   <p className="text-gray-600 mb-4">Best for structured, real-time data: Databases, APIs, SaaS platforms</p>
                   <div className="flex flex-wrap gap-2">
@@ -499,7 +554,7 @@ export default function BlueAllyAIWorkshop() {
           {/* Data Growth Stats */}
           <FadeInSection className="mt-16">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#003B73' }}>Exponential Data Growth</h3>
+              <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#32373c' }}>Exponential Data Growth</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={dataGrowthData}>
@@ -511,11 +566,11 @@ export default function BlueAllyAIWorkshop() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 text-center">
                 <div className="p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-bold" style={{ color: '#003B73' }}>402.74M TB</div>
+                  <div className="text-2xl font-bold" style={{ color: '#32373c' }}>402.74M TB</div>
                   <div className="text-sm text-gray-500">Created Daily</div>
                 </div>
                 <div className="p-4 bg-gray-50 rounded-xl">
-                  <div className="text-2xl font-bold" style={{ color: '#00A3E0' }}>147 ZB</div>
+                  <div className="text-2xl font-bold" style={{ color: '#0693e3' }}>147 ZB</div>
                   <div className="text-sm text-gray-500">Annual (2024)</div>
                 </div>
                 <div className="p-4 bg-gray-50 rounded-xl">
@@ -533,11 +588,11 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 4: SEVEN-STEP FRAMEWORK ===== */}
-      <section className="py-20 bg-white">
+      <section id="framework" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#003B73' }}>
-              The BlueAlly <span style={{ color: '#00A3E0' }}>Seven-Step</span> Framework
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#32373c' }}>
+              The BlueAlly <span style={{ color: '#0693e3' }}>Seven-Step</span> Framework
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               A rigorous methodology that ensures measurable, defensible ROI for every AI initiative.
@@ -559,11 +614,11 @@ export default function BlueAllyAIWorkshop() {
                     onClick={() => setActiveStep(activeStep === step.num ? null : step.num)}
                   >
                     <div className={`w-24 h-24 mx-auto rounded-full flex items-center justify-center text-2xl font-bold text-white mb-4 transition-all duration-300 ${activeStep === step.num ? 'ring-4 ring-green-400 ring-offset-4' : ''}`}
-                      style={{ background: activeStep === step.num ? '#00B34A' : 'linear-gradient(135deg, #003B73, #00A3E0)' }}
+                      style={{ background: activeStep === step.num ? '#00B34A' : 'linear-gradient(135deg, #32373c, #0693e3)' }}
                     >
                       {step.num}
                     </div>
-                    <h4 className="text-center font-bold text-sm" style={{ color: '#003B73' }}>{step.name}</h4>
+                    <h4 className="text-center font-bold text-sm" style={{ color: '#32373c' }}>{step.name}</h4>
                   </div>
                 </FadeInSection>
               ))}
@@ -604,7 +659,7 @@ export default function BlueAllyAIWorkshop() {
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4" style={{ background: '#00B34A' }}>
                     {item.icon}
                   </div>
-                  <h4 className="font-bold mb-2" style={{ color: '#003B73' }}>{item.title}</h4>
+                  <h4 className="font-bold mb-2" style={{ color: '#32373c' }}>{item.title}</h4>
                   <p className="text-gray-600 text-sm">{item.desc}</p>
                 </div>
               </FadeInSection>
@@ -614,11 +669,11 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 5: DELIVERABLES ===== */}
-      <section className="py-20" style={{ background: 'linear-gradient(180deg, #003B73 0%, #001d3a 100%)' }}>
+      <section className="py-20" style={{ background: 'linear-gradient(180deg, #32373c 0%, #1a1d20 100%)' }}>
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Your Workshop <span style={{ color: '#00A3E0' }}>Deliverables</span>
+              Your Workshop <span style={{ color: '#0693e3' }}>Deliverables</span>
             </h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
               Walk away with everything you need to launch AI with confidence.
@@ -640,14 +695,14 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 6: 8-STAGE JOURNEY ===== */}
-      <section className="py-20 bg-white">
+      <section id="journey" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#003B73' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#32373c' }}>
               Foundation → Planning → Execution → Optimization
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Single-Vendor Advantage: <strong style={{ color: '#00B34A' }}>35% fewer issues</strong>, <strong style={{ color: '#00A3E0' }}>40% faster deployment</strong>
+              Single-Vendor Advantage: <strong style={{ color: '#00B34A' }}>35% fewer issues</strong>, <strong style={{ color: '#0693e3' }}>40% faster deployment</strong>
             </p>
           </FadeInSection>
 
@@ -658,7 +713,7 @@ export default function BlueAllyAIWorkshop() {
                 key={phase}
                 className="px-6 py-3 rounded-full font-medium transition-all duration-300"
                 style={{
-                  background: activeStage === phase || !activeStage ? 'linear-gradient(90deg, #003B73, #00A3E0)' : '#f3f4f6',
+                  background: activeStage === phase || !activeStage ? 'linear-gradient(90deg, #32373c, #0693e3)' : '#f3f4f6',
                   color: activeStage === phase || !activeStage ? 'white' : '#666',
                 }}
                 onClick={() => setActiveStage(activeStage === phase ? null : phase)}
@@ -676,18 +731,18 @@ export default function BlueAllyAIWorkshop() {
                 <FadeInSection key={stage.num} delay={i * 0.1}>
                   <div className="bg-gray-50 rounded-2xl p-6 hover-lift h-full">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold" style={{ background: stage.phase === 'Optimization' ? '#00B34A' : 'linear-gradient(135deg, #003B73, #00A3E0)' }}>
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold" style={{ background: stage.phase === 'Optimization' ? '#00B34A' : 'linear-gradient(135deg, #32373c, #0693e3)' }}>
                         {stage.num}
                       </div>
                       <div>
-                        <h4 className="font-bold" style={{ color: '#003B73' }}>{stage.name}</h4>
+                        <h4 className="font-bold" style={{ color: '#32373c' }}>{stage.name}</h4>
                         <p className="text-sm text-gray-500">{stage.week}</p>
                       </div>
                     </div>
                     <ul className="space-y-2 mb-4">
                       {stage.activities.slice(0, 3).map((act, j) => (
                         <li key={j} className="text-sm text-gray-600 flex items-start gap-2">
-                          <span style={{ color: '#00A3E0' }}>•</span>
+                          <span style={{ color: '#0693e3' }}>•</span>
                           {act}
                         </li>
                       ))}
@@ -708,10 +763,10 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 7: BUSINESS IMPACT ===== */}
-      <section className="py-20 bg-gray-50">
+      <section id="results" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <FadeInSection className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#003B73' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#32373c' }}>
               Measurable <span style={{ color: '#00B34A' }}>Business Impact</span>
             </h2>
             <p className="text-xl text-gray-600">Single-vendor approach delivers proven results</p>
@@ -739,7 +794,7 @@ export default function BlueAllyAIWorkshop() {
           {/* Success Rate Chart */}
           <FadeInSection>
             <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#003B73' }}>Success Rate by Approach</h3>
+              <h3 className="text-2xl font-bold text-center mb-8" style={{ color: '#32373c' }}>Success Rate by Approach</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={successRateData} layout="vertical">
@@ -796,7 +851,7 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== SECTION 9: FINAL CTA ===== */}
-      <section className="py-20" style={{ background: 'linear-gradient(135deg, #003B73 0%, #001d3a 50%, #00A3E0 100%)' }}>
+      <section id="contact" className="py-20" style={{ background: 'linear-gradient(135deg, #32373c 0%, #1a1d20 50%, #0693e3 100%)' }}>
         <ParticleBackground />
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <FadeInSection className="text-center mb-12">
@@ -812,7 +867,7 @@ export default function BlueAllyAIWorkshop() {
             <div className="bg-white rounded-2xl p-8 shadow-2xl">
               <div className="text-center mb-8">
                 <span className="text-4xl">🚀</span>
-                <h3 className="text-2xl font-bold mt-4" style={{ color: '#003B73' }}>Schedule Your Workshop</h3>
+                <h3 className="text-2xl font-bold mt-4" style={{ color: '#32373c' }}>Schedule Your Workshop</h3>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -879,7 +934,7 @@ export default function BlueAllyAIWorkshop() {
                 <option value="other">Other</option>
               </select>
 
-              <button className="w-full mt-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-lg hover:shadow-xl transition-all duration-300 pulse-glow">
+              <button className="w-full mt-6 py-4 btn-primary text-lg font-bold hover:shadow-xl transition-all duration-300 pulse-glow">
                 Schedule My Workshop
               </button>
 
@@ -921,25 +976,82 @@ export default function BlueAllyAIWorkshop() {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      <footer className="bg-[#32373c] text-gray-300 py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                <span className="text-xl font-bold text-white">B</span>
+          <div className="grid md:grid-cols-5 gap-8 mb-12">
+            {/* Logo & Tagline */}
+            <div className="md:col-span-2">
+              <a href="https://www.blueally.com" className="inline-block mb-4">
+                <img
+                  src="https://www.blueally.com/wp-content/uploads/2023/11/blue-header-logo.png"
+                  alt="BlueAlly"
+                  className="h-10 brightness-0 invert"
+                />
+              </a>
+              <p className="text-gray-400 mb-4">
+                Trade IT complexity for capability with solutions that elevate possibility.
+              </p>
+              <p className="text-[#0693e3] font-medium">Conquer IT complexity.</p>
+              {/* Social Links */}
+              <div className="flex gap-4 mt-6">
+                <a href="https://www.linkedin.com/company/blueally" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#0693e3] transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://twitter.com/blueally" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#0693e3] transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/blueally" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#0693e3] transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
               </div>
-              <span className="text-xl font-bold text-white">BlueAlly</span>
             </div>
-            <p className="text-center">
-              Trade complexity for capability. Conquer IT with BlueAlly.
-            </p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+
+            {/* Solutions */}
+            <div>
+              <h4 className="text-white font-bold mb-4">Solutions</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://www.blueally.com/solutions/" className="hover:text-[#0693e3] transition-colors">AI & Data Analytics</a></li>
+                <li><a href="https://www.blueally.com/solutions/" className="hover:text-[#0693e3] transition-colors">Cloud Infrastructure</a></li>
+                <li><a href="https://www.blueally.com/solutions/" className="hover:text-[#0693e3] transition-colors">Security</a></li>
+                <li><a href="https://www.blueally.com/solutions/" className="hover:text-[#0693e3] transition-colors">Managed Services</a></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="text-white font-bold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://www.blueally.com/about/" className="hover:text-[#0693e3] transition-colors">About Us</a></li>
+                <li><a href="https://www.blueally.com/success-stories/" className="hover:text-[#0693e3] transition-colors">Success Stories</a></li>
+                <li><a href="https://www.blueally.com/careers/" className="hover:text-[#0693e3] transition-colors">Careers</a></li>
+                <li><a href="https://www.blueally.com/contact/" className="hover:text-[#0693e3] transition-colors">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-bold mb-4">Contact</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#0693e3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  <a href="tel:8008865369" className="hover:text-[#0693e3]">(800) 886-5369</a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#0693e3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  <a href="mailto:info@blueally.com" className="hover:text-[#0693e3]">info@blueally.com</a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-            © 2025 BlueAlly. All rights reserved.
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <p>© 2025 BlueAlly. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="https://www.blueally.com/privacy-policy/" className="hover:text-[#0693e3] transition-colors">Privacy Policy</a>
+              <a href="https://www.blueally.com/terms-of-service/" className="hover:text-[#0693e3] transition-colors">Terms of Service</a>
+              <a href="https://www.blueally.com/trust-center/" className="hover:text-[#0693e3] transition-colors">Trust Center</a>
+            </div>
           </div>
         </div>
       </footer>
